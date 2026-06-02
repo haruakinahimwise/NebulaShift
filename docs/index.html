@@ -11,21 +11,41 @@
     window.supabase = { createClient };
   </script>
 
-  <!-- your CSS -->
+  <!-- Your CSS -->
   <link rel="stylesheet" href="./styles.css" />
 </head>
 
 <body>
 
-  <!-- Your UI -->
   <div id="app">
-    <div id="server-list"></div>
-    <div id="channels-list"></div>
-    <div id="chat">
-      <h2 id="chat-title">#general</h2>
-      <div id="messages-list"></div>
-      <input id="chat-input" placeholder="Message #general" />
+
+    <!-- LEFT: SERVER LIST -->
+    <div id="server-list" class="sidebar servers">
+      <!-- servers will be injected here -->
     </div>
+
+    <!-- MIDDLE: CHANNEL LIST -->
+    <div id="channels-list" class="sidebar channels">
+      <!-- channels will be injected here -->
+    </div>
+
+    <!-- RIGHT: CHAT AREA -->
+    <div id="chat" class="chat-container">
+      <div class="chat-header">
+        <h2 id="chat-title">#general</h2>
+      </div>
+
+      <div id="messages-list" class="messages"></div>
+
+      <div class="chat-input-wrapper">
+        <input 
+          id="chat-input" 
+          placeholder="Message #general" 
+          autocomplete="off"
+        />
+      </div>
+    </div>
+
   </div>
 
   <!-- JS FILES (order matters) -->
