@@ -44,7 +44,7 @@ async function selectChannel(channel, el) {
 async function loadMessages(channelId) {
   const { data, error } = await supabaseClient
     .from("messages")
-    .select("*, users!messages_author_id_fkey(*)")
+    .select("*, users:user_id(*)")
     .eq("channel_id", channelId)
     .order("created_at");
 
@@ -84,10 +84,15 @@ function subscribe(channelId) {
   if (sub) supabaseClient.removeChannel(sub);
 
   sub = supabaseClient
-    .channel(`messages:${channelId}`)
+    .channel("messages")
     .on(
       "postgres_changes",
-      { event: "INSERT", schema: "public", table: "messages", filter: `channel_id=eq.${channelId}` },
+      {
+        event: "INSERT",
+        schema: "public",
+        table: "messages",
+        filter: `channel_id=eq.${channelId}`
+      },
       payload => {
         const m = payload.new;
         const list = document.getElementById("messages-list");
@@ -121,7 +126,7 @@ function initChatInput() {
       if (!window.currentUser || !window.currentChannel) return;
 
       await supabaseClient.from("messages").insert([{
-        author_id: window.currentUser.id,
+        user_id: window.currentUser.id,
         channel_id: window.currentChannel.id,
         content
       }]);
