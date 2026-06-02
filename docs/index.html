@@ -1,62 +1,36 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Googl</title>
-  <link id="favicon" rel="icon" href="googl-favicon.png">
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Discord Clone</title>
+
+  <!-- LOAD SUPABASE v2 (CRITICAL) -->
+  <script type="module">
+    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+    window.supabase = { createClient };
+  </script>
+
+  <!-- your CSS -->
+  <link rel="stylesheet" href="./styles.css" />
 </head>
+
 <body>
 
-  <!-- CLOAK -->
-  <div id="cloak-root" class="cloak-root">
-    <div class="googl-logo">Googl</div>
-    <div class="googl-search-wrapper">
-      <input class="googl-search" placeholder="Search Googl or type a URL">
+  <!-- Your UI -->
+  <div id="app">
+    <div id="server-list"></div>
+    <div id="channels-list"></div>
+    <div id="chat">
+      <h2 id="chat-title">#general</h2>
+      <div id="messages-list"></div>
+      <input id="chat-input" placeholder="Message #general" />
     </div>
   </div>
 
-  <!-- APP -->
-  <div id="app-root" class="app-root hidden">
+  <!-- JS FILES (order matters) -->
+  <script type="module" src="./supabaseClient.js"></script>
+  <script type="module" src="./chat.js"></script>
 
-    <div class="sidebar-servers">
-      <div class="server-icon server-icon-home">N</div>
-      <div id="servers-list"></div>
-      <button id="add-server-btn" class="server-icon server-add">+</button>
-    </div>
-
-    <div class="sidebar-channels">
-      <div id="server-name" class="server-header">Server</div>
-      <div id="channels-list" class="channels-list"></div>
-
-      <div class="user-panel">
-        <div id="user-avatar" class="user-avatar"></div>
-        <div class="user-info">
-          <div id="user-username" class="user-username"></div>
-          <div id="user-status" class="user-status">online</div>
-        </div>
-        <button id="logout-btn" class="logout-btn">⏻</button>
-      </div>
-    </div>
-
-    <div class="main-chat">
-      <div class="chat-header">
-        <span id="chat-title">#general</span>
-      </div>
-      <div id="messages-list" class="messages-list"></div>
-      <div class="chat-input-wrapper">
-        <input id="chat-input" class="chat-input" placeholder="Message #general">
-      </div>
-    </div>
-
-    <div class="sidebar-right">
-      <div class="panel-header">Members</div>
-      <div id="members-list" class="members-list"></div>
-    </div>
-
-  </div>
-
-  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-  <script type="module" src="./js/main.js"></script>
 </body>
 </html>
